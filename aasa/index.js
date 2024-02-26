@@ -1,31 +1,32 @@
-const axios = require("axios")
+const axios = require("axios");
 
-const url =
-  "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json"
+const url = "https://api.bcb.gov.br/dados/serie/bcdata.sgs.1/dados?formato=json";
 
 async function obterCotacaoDolarPTAXVenda() {
   try {
-    const response = await axios.get(url)
-    const dados = response.data
-    const dataAtual = new Date().toLocaleDateString()
+    const response = await axios.get(url);
+    const dados = response.data;
+    const dataAtual = new Date().toLocaleDateString();
 
-    let valorEncontrado = null
+    let valorEncontrado = null;
 
     for (let i = 0; i < dados.length; i++) {
       if (dataAtual === dados[i].data) {
-        valorEncontrado = dados[i].valor
-        break
+        valorEncontrado = dados[i].valor;
+        break;
       }
     }
 
     if (valorEncontrado !== null) {
-      console.log([{"Valor": valorEncontrado,}])
+      const resultado = { Valor: valorEncontrado };
+      const jsonResultado = JSON.stringify(resultado);
+      console.log(jsonResultado);
     } else {
-      console.log("Cotação não encontrada para a data atual.")
+      console.log(JSON.stringify({ error: "Cotação não encontrada para a data atual." }));
     }
   } catch (error) {
-    console.error("Erro ao obter a cotação:", error)
+    console.error("Erro ao obter a cotação:", error);
   }
 }
 
-obterCotacaoDolarPTAXVenda()
+obterCotacaoDolarPTAXVenda();

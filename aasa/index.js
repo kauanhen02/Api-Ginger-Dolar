@@ -19,7 +19,7 @@ async function obterCotacaoDolarPTAXVenda() {
     }
 
     if (valorEncontrado !== null) {
-      console.log("Cotação do dólar PTAX de venda:", valorEncontrado)
+      console.log([{"Valor": valorEncontrado,}])
     } else {
       console.log("Cotação não encontrada para a data atual.")
     }

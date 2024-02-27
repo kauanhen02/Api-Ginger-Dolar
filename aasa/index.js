@@ -14,8 +14,16 @@ async function obterCotacaoDolarPTAXVenda() {
       if (dataAtual === dados[i].data) {
         valorEncontrado = dados[i].valor;
         break;
-      }
+      } 
     }
+
+    for (let o = dados.length - 1; o >= 0; o--) {
+      if (dataAtual !== dados[o].data) {
+        valorEncontrado = dados[o].valor;
+        break;
+      } 
+    }
+    
 
     if (valorEncontrado !== null) {
       const resultado = { Valor: valorEncontrado };
@@ -29,6 +37,5 @@ async function obterCotacaoDolarPTAXVenda() {
   }
 }
 
-obterCotacaoDolarPTAXVenda();
- 
-
+// Execute a função a cada 10 segundos
+setInterval(obterCotacaoDolarPTAXVenda, 10000); // 10 segundos em milissegundos

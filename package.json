@@ -4,7 +4,7 @@
   "description": "Meu projeto Node.js",
   "main": "index.js",
   "scripts": {
-    "start": "node ./aasa/index.js"
+    "start": "node ./src/server.js"
   },
   "keywords": [],
   "author": "",

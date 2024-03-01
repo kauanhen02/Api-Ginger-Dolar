@@ -10,13 +10,24 @@ const jsonFilePath = path.join(__dirname, "cotacao_dolar.json");
 
 app.get("/cotacaodolar", (req, res) =>{
   try {
-    const cotacaodolar = JSON.parse(fs.readFileSync(jsonFilePath));
+    const cotacaodolar = obterUltimaCotacaoSalva(); // Nova função para obter a última cotação salva
     res.json(cotacaodolar);
   } catch (error) {
     console.error("Erro ao ler o arquivo JSON:", error);
     res.status(500).json({ error: "Erro ao ler o arquivo JSON" });
   }
 })
+
+function obterUltimaCotacaoSalva() {
+  const dadosSalvos = JSON.parse(fs.readFileSync(jsonFilePath));
+  // Se houver dados salvos, retornar o último registro
+  if (dadosSalvos.length > 0) {
+    return dadosSalvos[dadosSalvos.length - 1];
+  } else {
+    return { error: "Nenhuma cotação salva encontrada." };
+  }
+}
+
 
 function inicializarArquivoJSON() {
   try {
